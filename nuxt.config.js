@@ -25,6 +25,16 @@ export default {
     start_url: '/news'
   },
 
+  router: {
+    middleware: [
+      'amp'
+    ]
+  },
+
+  modules: [
+    '@nuxtjs/amp'
+  ],
+
   devModules: [
     '@nuxtjs/pwa',
     '@nuxtjs/axios'

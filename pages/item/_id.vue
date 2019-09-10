@@ -10,7 +10,7 @@
       </template>
       <p class="meta">
         {{ item.points }} points | by
-        <router-link :to="'/user/' + item.user">
+        <router-link :to="userLink">
           {{ item.user }}
         </router-link>
         {{ item.time | timeAgo }} ago
@@ -49,6 +49,12 @@ export default {
     },
     item() {
       return this.$store.state.items[this.id]
+    },
+    itemLink() {
+      return (this.$isAMP ? '/amp/item/' : '/item/') + this.item.id
+    },
+    userLink() {
+      return (this.$isAMP ? '/amp/user/' : '/user/') + this.item.user
     }
   },
 

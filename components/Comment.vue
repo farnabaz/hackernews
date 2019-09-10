@@ -1,7 +1,7 @@
 <template>
   <li v-if="comment && comment.user" class="comment">
     <div class="by">
-      <router-link :to="'/user/' + comment.user">
+      <router-link :to="userLink">
         {{ comment.user }}
       </router-link>
       {{ comment.time | timeAgo }} ago
@@ -29,6 +29,11 @@ export default {
   data() {
     return {
       open: true
+    }
+  },
+  computed: {
+    userLink() {
+      return (this.$isAMP ? '/amp/user/' : '/user/') + this.comment.user
     }
   },
   methods: {

@@ -1,11 +1,11 @@
 <template>
   <div class="news-list-nav">
-    <router-link v-if="page > 1" :to="`/${feed}/${page - 1}`">
+    <router-link v-if="page > 1" :to="prevLink">
       &lt; prev
     </router-link>
     <a v-else class="disabled">&lt; prev</a>
     <span>{{ page }}/{{ maxPage }}</span>
-    <router-link v-if="hasMore" :to="`/${feed}/${page + 1}`">
+    <router-link v-if="hasMore" :to="nextLink">
       more &gt;
     </router-link>
     <a v-else class="disabled">more &gt;</a>
@@ -31,6 +31,12 @@ export default {
   computed: {
     hasMore() {
       return this.page < this.maxPage
+    },
+    nextLink() {
+      return (this.$isAMP ? '/amp' : '') + `/${this.feed}/${this.page + 1}`
+    },
+    prevLink() {
+      return (this.$isAMP ? '/amp' : '') + `/${this.feed}/${this.page - 1}`
     }
   }
 }

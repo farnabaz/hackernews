@@ -7,21 +7,21 @@
         <span class="host"> ({{ item.url | host }})</span>
       </template>
       <template v-else>
-        <router-link :to="'/item/' + item.id">{{ item.title }}</router-link>
+        <router-link :to="itemLink">{{ item.title }}</router-link>
       </template>
     </span>
     <br>
     <span class="meta">
       <span v-if="item.type !== 'job'" class="by">
         by
-        <router-link :to="'/user/' + item.user">{{ item.user }}</router-link>
+        <router-link :to="userLink">{{ item.user }}</router-link>
       </span>
       <span class="time">
         {{ item.time | timeAgo }} ago
       </span>
       <span v-if="item.type !== 'job'" class="comments-link">
         |
-        <router-link :to="'/item/' + item.id">{{ item.comments_count }} comments</router-link>
+        <router-link :to="itemLink">{{ item.comments_count }} comments</router-link>
       </span>
     </span>
   </li>
@@ -36,6 +36,14 @@ export default {
     item: {
       type: Object,
       required: true
+    }
+  },
+  computed: {
+    itemLink() {
+      return (this.$isAMP ? '/amp/item/' : '/item/') + this.item.id
+    },
+    userLink() {
+      return (this.$isAMP ? '/amp/user/' : '/user/') + this.item.user
     }
   },
   methods: {
